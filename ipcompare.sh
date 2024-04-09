@@ -13,7 +13,11 @@ password="$3"
 publicip=$(curl -s icanhazip.com)
 
 # Construct the domain to compare
-comparedomain="$host.$domain"
+if [ "$host" = "@" ]; then
+    comparedomain="$domain"
+else
+    comparedomain="$host.$domain"
+fi
 
 # Perform nslookup to resolve the IP address of comparedomain
 lookupip=$(dig +short "$comparedomain")
